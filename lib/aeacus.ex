@@ -1,8 +1,7 @@
 defmodule Aeacus do
   @moduledoc """
-    Aeacus is a simple, secure, and highly configurable authentication module
-    for use with Ecto. Safely and easily authenticate identity/passwords from
-    any resource.
+    A simple, secure, and highly configurable Elixir identity [username |
+    email | id | etc.]/password authentication module to use with Ecto.
   """
 
   @doc false

@@ -1,5 +1,7 @@
 %{"comeonin": {:hex, :comeonin, "1.0.3"},
   "decimal": {:hex, :decimal, "1.1.0"},
+  "earmark": {:hex, :earmark, "0.1.17"},
   "ecto": {:hex, :ecto, "0.13.1"},
+  "ex_doc": {:git, "git://github.com/elixir-lang/ex_doc.git", "f319194c10d35139f19778386da2366d454bf0a9", []},
   "poolboy": {:hex, :poolboy, "1.5.1"},
   "postgrex": {:hex, :postgrex, "0.8.4"}}

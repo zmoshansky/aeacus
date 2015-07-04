@@ -38,6 +38,8 @@ defmodule Aeacus.Mixfile do
     [
       {:comeonin, "~> 1.0"},
       {:ecto, "~> 0.11"},
+      {:ex_doc, github: "elixir-lang/ex_doc"},
+      {:earmark, ">= 0.0.0"},
       {:postgrex, ">= 0.0.0", only: :test}
     ]
   end
