@@ -3,6 +3,8 @@
 
 A simple, secure, and highly configurable Elixir identity [username | email | id | etc.]/password authentication module to use with Ecto.
 
+[![Build Status](https://travis-ci.org/zmoshansky/aeacus.svg)](https://travis-ci.org/zmoshansky/aeacus) [![Hex.pm](http://img.shields.io/hexpm/v/aeacus.svg)](https://hex.pm/packages/aeacus) [![Hex.pm](http://img.shields.io/hexpm/dt/aeacus.svg)](https://hex.pm/packages/aeacus) [![Github Issues](http://githubbadges.herokuapp.com/zmoshansky/aeacus/issues.svg)](https://github.com/zmoshansky/aeacus/issues) [![Pending Pull-Requests](http://githubbadges.herokuapp.com/zmoshansky/aeacus/pulls.svg)](https://github.com/zmoshansky/aeacus/pulls)
+
 #### Description ####
 Aeacus only performs authentication, making it well suited for integration with session storage, or a token system; like [Guardian](https://github.com/hassox/guardian). Alternatively, this could be used directly over a secure (HTTPS) connection with [HTTP Basic Auth](https://en.wikipedia.org/wiki/Basic_access_authentication); But, it is highly discouraged as there is a greater security risk, due to repeatedly sending your authentication information to the server, only relying on TLS for security.
 
