@@ -2,7 +2,6 @@ defmodule Aeacus.Authenticator do
   @moduledoc """
     Safely and easily authenticate identity/passwords from any schema
   """
-  @behaviour Guardian.Authenticator
 
   @doc """
     Authenticates a resource based on the map keys: :identity, :password.
@@ -10,11 +9,11 @@ defmodule Aeacus.Authenticator do
     authenticating different resources.
 
     ex.)
-      Aeacus.Authenticator.authenticate conn, %{identity: "test@example.com",
+      Aeacus.Authenticator.authenticate %{identity: "test@example.com",
       password: "1234"}
   """
-  @spec authenticate(Plug.Conn.t, Map.t, Map.t | none) :: {:ok, term} | {:error, String.t}
-  def authenticate(_, %{identity: id, password: pass}, configuration \\ %{}) do
+  @spec authenticate(Map.t, Map.t | none) :: {:ok, term} | {:error, String.t}
+  def authenticate(%{identity: id, password: pass}, configuration \\ %{}) do
     config = case Map.size(configuration) do
       0 -> Aeacus.config |> Enum.into %{}
       _ -> configuration

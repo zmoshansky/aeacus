@@ -11,12 +11,11 @@ defmodule Aeacus.AuthenticatorTest do
   end
 
   test "authenticate with app config" do
-    assert_ok Authenticator.authenticate nil, %{identity: @email, password: @password}
+    assert_ok Authenticator.authenticate %{identity: @email, password: @password}
   end
 
   test "authenticate with custom params" do
-    assert_ok Authenticator.authenticate nil,
-    %{identity: @username,
+    assert_ok Authenticator.authenticate %{identity: @username,
       password: @password},
     %{repo: Aeacus.Repo,
       model: Aeacus.Test.MockCustomResource,
@@ -28,19 +27,18 @@ defmodule Aeacus.AuthenticatorTest do
   end
 
   test "authenticate returns the resource" do
-    {:ok, resource} = Authenticator.authenticate nil, %{identity: @email, password: @password}
+    {:ok, resource} = Authenticator.authenticate %{identity: @email, password: @password}
     assert resource.__struct__ == MockResource
     assert resource.email == @email
   end
 
   test "default error message" do
-    {:error, message} = Authenticator.authenticate nil, %{identity: @bad_identity, password: @password}
+    {:error, message} = Authenticator.authenticate %{identity: @bad_identity, password: @password}
     assert message == "Invalid identity or password."
   end
 
   test "custom error message" do
-    {:error, message} = Authenticator.authenticate nil,
-    %{identity: @bad_identity,
+    {:error, message} = Authenticator.authenticate %{identity: @bad_identity,
       password: @password},
     %{repo: Aeacus.Repo,
       model: Aeacus.Test.MockCustomResource,
@@ -53,10 +51,10 @@ defmodule Aeacus.AuthenticatorTest do
   end
 
   test "authenticate fails if resource doesn't exist" do
-    assert_error Authenticator.authenticate nil, %{identity: @bad_identity, password: @password}
+    assert_error Authenticator.authenticate %{identity: @bad_identity, password: @password}
   end
 
   test "authenticate fails if password is incorrect" do
-    assert_error Authenticator.authenticate nil, %{identity: @email, password: @bad_password}
+    assert_error Authenticator.authenticate %{identity: @email, password: @bad_password}
   end
 end

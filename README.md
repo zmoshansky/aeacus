@@ -1,14 +1,13 @@
-Aeacus
+[Aeacus - The holder of keys](https://en.wikipedia.org/wiki/Aeacus)
 ======
-
-** [Aeacus - The holder of keys](https://en.wikipedia.org/wiki/Aeacus) **
 
 A simple, secure, and highly configurable Elixir identity [username | email | id | etc.]/password authentication module to use with Ecto.
 
+#### Description ####
 Aeacus only performs authentication, making it well suited for integration with session storage, or a token system; like [Guardian](https://github.com/hassox/guardian). Alternatively, this could be used directly over a secure (HTTPS) connection with [HTTP Basic Auth](https://en.wikipedia.org/wiki/Basic_access_authentication); But, it is highly discouraged as there is a greater security risk, due to repeatedly sending your authentication information to the server, only relying on TLS for security.
 
 #### Requirements ####
-Aeacus requires that you have an Ecto model that has UNIQUE(identity_field) and password_field. These fields can be configured to easily match your schema, whether it be `username`, `email`, or `pass`, `password`, `hash`, `hashed_password`, etc. Of course, the passwords must be stored using the same crypto system, as Aeacus; Ideally salted and hashed, plaintext is heavily discouraged.
+Aeacus requires that you have an Ecto model that has UNIQUE(identity_field) and password_field. These fields can be configured to easily match your schema, whether it be `username`, `email`, or `pass`, `password`, `hash`, `hashed_password`, etc. Of course, the passwords must be stored using the same crypto system as Aeacus; The password should be salted and hashed, plaintext is heavily discouraged. See the tests for examples.
 
 #### Config ####
 You must set the `:repo` and `:model` for Aeacus. The other options have sane defaults.
@@ -25,12 +24,12 @@ config :aeacus, Aeacus,
 ```
 
 #### Example Session Controller ####
-`Aeacus.authenticate` expects a `connection :: Plug.Conn.t`, and a `Map` with keys `:identity`, and `:password`.
+`Aeacus.authenticate` expects a `Map` with keys `:identity`, and `:password`.
 
 ```
 defmodule MyApp.SessionController do
   def create(conn, params) do
-    case Aeacus.authenticate conn, %{identity: params[:email], password: params[:pass]} do
+    case Aeacus.authenticate %{identity: params[:email], password: params[:pass]} do
       {:ok, user} -> CreateTokenOrCookie
       {:error, message} -> DisplayAuthenticationScreenAgain
     end
