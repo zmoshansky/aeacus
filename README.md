@@ -26,12 +26,12 @@ config :aeacus, Aeacus,
 ```
 
 #### Example Session Controller ####
-`Aeacus.authenticate` expects a `Map` with keys `:identity`, and `:password`.
+`Aeacus.Authenticator.authenticate` expects a `Map` with keys `:identity`, and `:password`. Alternatively, `Aeacus.Authenticator.authenticate_resource` can be used if a resource is already loaded.
 
 ```
 defmodule MyApp.SessionController do
   def create(conn, params) do
-    case Aeacus.authenticate %{identity: params[:email], password: params[:pass]} do
+    case Aeacus.Authenticator.authenticate %{identity: params[:email], password: params[:pass]} do
       {:ok, user} -> CreateTokenOrCookie
       {:error, message} -> DisplayAuthenticationScreenAgain
     end

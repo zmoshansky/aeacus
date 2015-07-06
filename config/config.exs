@@ -10,11 +10,7 @@ use Mix.Config
 
 config :aeacus, Aeacus,
   repo: Aeacus.Repo,
-  model: Aeacus.Test.MockResource,
-  crypto: Comeonin.Pbkdf2,
-  identity_field: :email,
-  password_field: :hashed_password,
-  error_message: "Invalid identity or password."
+  model: Aeacus.Test.MockResource
 
 config :logger, :console,
   level: :warn,

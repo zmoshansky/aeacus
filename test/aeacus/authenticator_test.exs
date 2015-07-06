@@ -4,7 +4,7 @@ defmodule Aeacus.AuthenticatorTest do
 
   setup tags do
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(Aeacus.Repo, [])
+      Ecto.Adapters.SQL.restart_test_transaction(Repo, [])
     end
 
     :ok
@@ -17,8 +17,8 @@ defmodule Aeacus.AuthenticatorTest do
   test "authenticate with custom params" do
     assert_ok Authenticator.authenticate %{identity: @username,
       password: @password},
-    %{repo: Aeacus.Repo,
-      model: Aeacus.Test.MockCustomResource,
+    %{repo: Repo,
+      model: MockCustomResource,
       crypto: Comeonin.Pbkdf2,
       identity_field: :username,
       password_field: :pass,
@@ -32,6 +32,15 @@ defmodule Aeacus.AuthenticatorTest do
     assert resource.email == @email
   end
 
+  test "authenticate_resource with app config" do
+    user = Repo.get_by(MockResource, email: @email)
+    assert_ok Authenticator.authenticate_resource user, %{identity: @email, password: @password}
+  end
+
+  test "authenticate_resource fails if resource doesn't exist" do
+    assert_error Authenticator.authenticate_resource nil, %{identity: @email, password: @password}
+  end
+
   test "default error message" do
     {:error, message} = Authenticator.authenticate %{identity: @bad_identity, password: @password}
     assert message == "Invalid identity or password."
@@ -40,8 +49,8 @@ defmodule Aeacus.AuthenticatorTest do
   test "custom error message" do
     {:error, message} = Authenticator.authenticate %{identity: @bad_identity,
       password: @password},
-    %{repo: Aeacus.Repo,
-      model: Aeacus.Test.MockCustomResource,
+    %{repo: Repo,
+      model: MockCustomResource,
       crypto: Comeonin.Pbkdf2,
       identity_field: :username,
       password_field: :pass,

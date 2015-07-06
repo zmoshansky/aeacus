@@ -4,7 +4,7 @@ defmodule Aeacus.Mixfile do
   def project do
     [
       app: :aeacus,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.0",
       elixirc_paths: elixirc_paths(Mix.env),
       description: description,
@@ -60,11 +60,4 @@ defmodule Aeacus.Mixfile do
     """
   end
 
-  def config do
-    %{crypto: Comeonin.Pbkdf2,
-      identity_field: :email,
-      password_field: :hashed_password,
-      error_message: "Invalid identity or password."
-    }
-  end
 end

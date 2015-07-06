@@ -14,12 +14,22 @@ defmodule Aeacus.Authenticator do
   """
   @spec authenticate(Map.t, Map.t | none) :: {:ok, term} | {:error, String.t}
   def authenticate(%{identity: id, password: pass}, configuration \\ %{}) do
-    config = case Map.size(configuration) do
-      0 -> Aeacus.config |> Enum.into %{}
-      _ -> configuration
-    end
-
+    config = Aeacus.default_config(configuration)
     load_resource(id, config)
+    |> check_pw(pass, config)
+  end
+
+  @doc """
+    Same as authenticate/1, except a pre-loaded resource is used
+
+    ex.)
+      Aeacus.Authenticator.authenticate %{identity: "test@example.com",
+      password: "1234"}
+  """
+  @spec authenticate_resource(Map.t, Map.t, Map.t | none) :: {:ok, term} | {:error, String.t}
+  def authenticate_resource(resource, %{identity: id, password: pass}, configuration \\ %{}) do
+    config = Aeacus.default_config(configuration)
+    resource
     |> check_pw(pass, config)
   end
 
