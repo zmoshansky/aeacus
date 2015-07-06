@@ -27,7 +27,7 @@ defmodule Aeacus.Authenticator do
       password: "1234"}
   """
   @spec authenticate_resource(Map.t, Map.t, Map.t | none) :: {:ok, term} | {:error, String.t}
-  def authenticate_resource(resource, %{identity: id, password: pass}, configuration \\ %{}) do
+  def authenticate_resource(resource, %{password: pass}, configuration \\ %{}) do
     config = Aeacus.default_config(configuration)
     resource
     |> check_pw(pass, config)
