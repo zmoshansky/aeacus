@@ -23,7 +23,7 @@ defmodule Aeacus.Authenticator do
     Same as authenticate/1, except a pre-loaded resource is used
 
     ex.)
-      Aeacus.Authenticator.authenticate %{identity: "test@example.com",
+      Aeacus.Authenticator.authenticate resource, %{identity: "test@example.com",
       password: "1234"}
   """
   @spec authenticate_resource(Map.t, Map.t, Map.t | none) :: {:ok, term} | {:error, String.t}
