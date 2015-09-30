@@ -1,8 +1,10 @@
 ExUnit.start()
 
-# Mix.Task.run "ecto.drop", ["--quiet"]
-Mix.Task.run "ecto.create", ["--quiet"]
-Mix.Task.run "ecto.migrate", ["--quiet"]
+# Mix.Task.run "ecto.drop", ["--quiet", "-r", "Aeacus.Test.Repo"]
+Mix.Task.run "ecto.create", ["--quiet", "-r", "Aeacus.Test.Repo"]
+Mix.Task.run "ecto.migrate", ["--quiet", "-r", "Aeacus.Test.Repo"]
+
+Aeacus.Test.Repo.start_link
 
 defmodule Aeacus.Test.Seed do
   @moduledoc """
@@ -22,4 +24,4 @@ defmodule Aeacus.Test.Seed do
   end
 end
 
-Ecto.Adapters.SQL.begin_test_transaction(Aeacus.Repo)
+Ecto.Adapters.SQL.begin_test_transaction(Aeacus.Test.Repo)

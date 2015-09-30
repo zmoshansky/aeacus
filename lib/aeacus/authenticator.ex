@@ -14,7 +14,7 @@ defmodule Aeacus.Authenticator do
   """
   @spec authenticate(Map.t, Map.t | none) :: {:ok, term} | {:error, String.t}
   def authenticate(%{identity: id, password: pass}, configuration \\ %{}) do
-    config = Aeacus.default_config(configuration)
+    config = Aeacus.config(configuration)
     load_resource(id, config)
     |> check_pw(pass, config)
   end
@@ -28,7 +28,7 @@ defmodule Aeacus.Authenticator do
   """
   @spec authenticate_resource(Map.t, Map.t, Map.t | none) :: {:ok, term} | {:error, String.t}
   def authenticate_resource(resource, %{password: pass}, configuration \\ %{}) do
-    config = Aeacus.default_config(configuration)
+    config = Aeacus.config(configuration)
     resource
     |> check_pw(pass, config)
   end

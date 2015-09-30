@@ -3,7 +3,7 @@ defmodule Aeacus.Test.Helper do
   defmacro __using__(_opts) do
     quote do
       alias Aeacus.Authenticator
-      alias Aeacus.Repo
+      alias Aeacus.Test.Repo
       alias Aeacus.Test.MockResource
       alias Aeacus.Test.MockCustomResource
       import Aeacus.Test.Assertions

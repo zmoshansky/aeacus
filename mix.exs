@@ -4,7 +4,7 @@ defmodule Aeacus.Mixfile do
   def project do
     [
       app: :aeacus,
-      version: "0.1.1",
+      version: "0.2.0",
       elixir: "~> 1.0",
       elixirc_paths: elixirc_paths(Mix.env),
       description: description,
@@ -27,19 +27,19 @@ defmodule Aeacus.Mixfile do
 
 
   defp applications(:test) do
-    [:postgrex] ++ applications(:prod)
+    [:logger, :ecto, :postgrex] ++ applications(:prod)
   end
 
   defp applications(_) do
-    [:logger, :comeonin, :ecto]
+    [:comeonin]
   end
 
   defp deps do
     [
       {:comeonin, "~> 1.0"},
-      {:ecto, "~> 0.11"},
-      {:ex_doc, github: "elixir-lang/ex_doc", only: [:dev, :test]},
-      {:earmark, ">= 0.0.0", only: [:dev, :test]},
+      {:ex_doc, ">=0.1.0", only: [:dev, :test]},
+        {:earmark, ">= 0.0.0", only: [:dev, :test]},
+      {:ecto, "~> 1.0", only: :test},
       {:postgrex, ">= 0.0.0", only: :test}
     ]
   end
@@ -47,7 +47,7 @@ defmodule Aeacus.Mixfile do
   defp package do
     [
       files: ["lib", "mix.exs", "README*", "LICENSE*"],
-      contributors: ["Zachary Moshansky"],
+      maintainers: ["Zachary Moshansky"],
       licenses: ["BSD 3-Clause"],
       links: %{"GitHub" => "https://github.com/zmoshansky/aeacus"}
     ]
@@ -56,7 +56,7 @@ defmodule Aeacus.Mixfile do
   defp description do
     """
       A simple, secure, and highly configurable Elixir identity [username |
-      email | id | etc.]/password authentication module; Requires Ecto.
+      email | id | etc.]/password authentication module; Compatible with Ecto.
     """
   end
 

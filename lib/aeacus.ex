@@ -11,21 +11,19 @@ defmodule Aeacus do
     error_message: "Invalid identity or password."
   }
 
-  @doc false
-  def config, do: Application.get_env(:aeacus, Aeacus)
 
   @doc """
-   Decides to use the paramater passed configuration or application config.
-   The result is merged with the default configuration options specified by Aeacus.
+  Decides to use the override_config or application config.
+  The result is merged with the default configuration options specified by Aeacus.
   """
-  @spec default_config(Map.t) :: Map.t
-  def default_config(configuration) do
-    config = case Map.size(configuration) do
-      0 -> config |> Enum.into %{}
-      _ -> configuration
+  @spec config(Map.t) :: Map.t
+  def config(override_config) do
+    configuration = if Enum.empty?(override_config) do
+      Enum.into(Application.get_env(:aeacus, Aeacus), %{})
+    else
+      override_config
     end
 
-    Map.merge(@default_config, config)
+    Map.merge(@default_config, configuration)
   end
-
 end
