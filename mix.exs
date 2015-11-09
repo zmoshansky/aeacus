@@ -4,7 +4,7 @@ defmodule Aeacus.Mixfile do
   def project do
     [
       app: :aeacus,
-      version: "0.2.0",
+      version: "0.3.0",
       elixir: "~> 1.0",
       elixirc_paths: elixirc_paths(Mix.env),
       description: description,

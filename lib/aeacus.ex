@@ -17,12 +17,17 @@ defmodule Aeacus do
   defdelegate authenticate_resource(resource, password, configuration), to: Aeacus.Authenticator
 
   @doc """
+  Exposes the crypto module's hashpwsalt function. Used to salt and hash a password
+  """
+  def hashpwsalt(password), do: config(nil).crypto.hashpwsalt(password)
+
+  @doc """
   Decides to use the override_config or application config.
   The result is merged with the default configuration options specified by Aeacus.
   """
-  @spec config(Map.t) :: Map.t
+  @spec config(Map.t | nil) :: Map.t
   def config(override_config) do
-    configuration = if Enum.empty?(override_config) do
+    configuration = if is_nil(override_config) || Enum.empty?(override_config) do
       Enum.into(Application.get_env(:aeacus, Aeacus), %{})
     else
       override_config

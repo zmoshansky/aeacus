@@ -51,4 +51,8 @@ defmodule AeacusTest do
     assert_ok Aeacus.authenticate_resource user, %{identity: @email, password: @password}, %{}
   end
 
+  test "hashpwsalt" do
+    assert Aeacus.hashpwsalt("hi") |> String.starts_with?("$pbkdf2-sha512$")
+  end
+
 end
