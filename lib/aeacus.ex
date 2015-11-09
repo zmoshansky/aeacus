@@ -11,6 +11,10 @@ defmodule Aeacus do
     error_message: "Invalid identity or password."
   }
 
+  defdelegate authenticate(params), to: Aeacus.Authenticator
+  defdelegate authenticate(params, configuration), to: Aeacus.Authenticator
+  defdelegate authenticate_resource(resource, password), to: Aeacus.Authenticator
+  defdelegate authenticate_resource(resource, password, configuration), to: Aeacus.Authenticator
 
   @doc """
   Decides to use the override_config or application config.

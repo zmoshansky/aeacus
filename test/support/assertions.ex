@@ -7,7 +7,7 @@ defmodule Aeacus.Test.Assertions do
     quote do
       case unquote(arg) do
         {:ok, _} -> assert(true)
-        {:error, e} -> assert(false, e)
+        {:error, e} -> refute(false, e)
       end
     end
   end
@@ -15,7 +15,7 @@ defmodule Aeacus.Test.Assertions do
   defmacro assert_error(arg) do
     quote do
       case unquote(arg) do
-        {:ok, o} -> assert(false, o)
+        {:ok, o} -> refute(false, o)
         {:error, _} -> assert(true)
       end
     end

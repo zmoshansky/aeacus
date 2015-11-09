@@ -42,7 +42,7 @@ defmodule Aeacus.Authenticator do
   #   configured field (Defaults to :email).
   # """
   defp load_resource(id, %{repo: repo, model: model, identity_field: id_field}) do
-    repo.get_by(model, Map.put(%{}, id_field, id))
+    repo.get_by(model, [{id_field, id}])
   end
 
   # @doc """

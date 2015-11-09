@@ -1,5 +1,6 @@
 defmodule AeacusTest do
   use ExUnit.Case, async: true
+  use Aeacus.Test.Helper
 
   test "config values for Aeacus Testing" do
     config = Aeacus.config %{}
@@ -27,4 +28,27 @@ defmodule AeacusTest do
     assert config.repo == "b"
     assert config.identity_field == :foo
   end
+
+  test "delegates authenticate/1 to Aeacus.Authenticator" do
+    {:ok, resource} = Aeacus.authenticate %{identity: @email, password: @password}
+    assert resource.__struct__ == MockResource
+    assert resource.email == @email
+  end
+
+  test "delegates authenticate/2 to Aeacus.Authenticator" do
+    {:ok, resource} = Aeacus.authenticate %{identity: @email, password: @password}, %{}
+    assert resource.__struct__ == MockResource
+    assert resource.email == @email
+  end
+
+  test "delegates authenticate_resource/2 to Aeacus.Authenticator" do
+    user = Repo.get_by(MockResource, email: @email)
+    assert_ok Aeacus.authenticate_resource user, %{identity: @email, password: @password}
+  end
+
+  test "delegates authenticate_resource/3 to Aeacus.Authenticator" do
+    user = Repo.get_by(MockResource, email: @email)
+    assert_ok Aeacus.authenticate_resource user, %{identity: @email, password: @password}, %{}
+  end
+
 end
