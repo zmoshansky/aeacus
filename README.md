@@ -19,7 +19,7 @@ Aeacus requires that you have a Map compatible data structure (ex. Ecto Model) t
 #### Config ####
 You must set the `:repo` and `:model` for Aeacus. The other options have sane defaults.
 
-```
+```elixir
 config :aeacus, Aeacus,
   repo: MyApp.Repo,
   model: MyApp.User,
@@ -33,7 +33,7 @@ config :aeacus, Aeacus,
 #### Example Session Controller ####
 `Aeacus.authenticate` expects a `Map` with keys `:identity`, and `:password`. Alternatively, `Aeacus.authenticate_resource` can be used if a resource is already loaded.
 
-```
+```elixir
 defmodule MyApp.SessionController do
   def create(conn, params) do
     case Aeacus.authenticate %{identity: params[:email], password: params[:pass]} do
